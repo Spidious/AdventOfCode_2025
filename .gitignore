@@ -1,2 +1,4 @@
 out/
-challenges/chal_data/*
+challenges/chal_data/*.txt
+!challenges/chal_data/template.txt
+
