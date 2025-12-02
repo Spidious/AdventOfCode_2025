@@ -22,7 +22,7 @@ size_t advent::challenge_entry(
         // Grab the min and max of range for readability
         uint_fast64_t min = stoull(match[2]);
         uint_fast64_t max = stoull(match[3]);
-        cout << min << " ";
+
         for (uint_fast64_t i = min; i <= max; i++)
         {
             // Check part 1
@@ -40,7 +40,6 @@ size_t advent::challenge_entry(
             }
 
         }
-        cout << max << endl;
 
         // Advance the puzzle input
         puzzle_input = match.suffix();
