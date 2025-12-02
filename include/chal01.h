@@ -1,5 +1,5 @@
-#ifndef AOC25_CHALLENGE
-#define AOC25_CHALLENGE
+#ifndef AOC25_CHAL01_H
+#define AOC25_CHAL01_H
 
 #include <string>
 #include <iostream>
@@ -67,4 +67,4 @@ namespace advent
 
 }
 
-#endif //AOC25_CHALLENGE
+#endif //AOC25_CHAL01_H
