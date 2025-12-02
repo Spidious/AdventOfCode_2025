@@ -26,18 +26,27 @@ int main()
 
 
     // Run the challenge
+    auto begin_time = chrono::high_resolution_clock::now();
     auto challenge_result = advent::challenge_entry(file_data, out_buffer, "");
+    auto end_time = chrono::high_resolution_clock::now();
+
     if (challenge_result)
     {
         cerr << "Advent challenge has failed!" << endl;
         cerr << "Exit code: " << challenge_result << endl;
     }
 
+    // Calculate duration
+    auto duration = end_time - begin_time;
+    auto m_seconds = chrono::duration_cast<std::chrono::milliseconds>(duration);
+    auto seconds = chrono::duration_cast<std::chrono::seconds>(duration);
+
     // Output the buffer
     cout << "############ \"" << AOC_CHAL << "\" OUTPUT ############" << endl;
     cout << "Part 1: " << out_buffer[0] << endl;
     cout << "Part 2: " << out_buffer[1] << endl;
     cout << "#########################################" << endl;
-
+    cout << "Completed in: " << seconds.count() << "s (" << m_seconds.count() << "ms)" << endl;
+    cout << "#########################################" << endl;
     return 0;
 }
