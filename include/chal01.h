@@ -32,6 +32,9 @@ namespace advent
     {
         int pos, min, max, offset;
 
+        // For fun
+        long iter_count = 0;
+
         // Variables specifically to hold Part 1 and Part 2 outputs
         int part1 = 0, part2 = 0;
 
@@ -52,6 +55,7 @@ namespace advent
         Dial& operator-= (const int& rotation);
 
         int* get_parts() const;
+        long get_iters() const;
 
     };
 

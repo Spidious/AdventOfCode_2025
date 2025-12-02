@@ -49,6 +49,8 @@ size_t advent::challenge_entry(
         buffer[0] = to_string(dial.get_parts()[0]);
         buffer[1] = to_string(dial.get_parts()[1]);
 
+        cout << "Completed " << dial.get_iters() << " Iterations" << endl;
+
     }
     catch (const invalid_argument& e)
     {
@@ -68,6 +70,7 @@ size_t advent::challenge_entry(
 advent::Dial& advent::Dial::operator+= (const int& rotation)
 {
     int pos_hold = pos;
+    iter_count++;
 
     // Handle right hand rotation
     int movement = (pos - min) + rotation;   // shift to 0..offset
@@ -95,6 +98,7 @@ advent::Dial& advent::Dial::operator-= (const int& rotation)
     // Could NOT figure out how to do this algebraically so I brute forced it and no I'm not proud of it
     for (int i = 0; i < rotation; i++)
     {
+        iter_count++;
         pos--;
         if (pos < min) pos = max;
         if (pos == min) part2++;
@@ -115,3 +119,7 @@ int* advent::Dial::get_parts() const
     return arr;
 }
 
+long advent::Dial::get_iters() const
+{
+    return iter_count;
+}
