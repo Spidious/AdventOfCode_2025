@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <regex>
+#include <array>
 
 #define STARTING_POS 50
 #define DIAL_MIN 0
@@ -28,8 +29,10 @@ namespace advent
         const string& input
     );
 
+    // Object to better handle the dial
     class Dial
     {
+        // Values to try to do this algebraically (boy what a fail)
         int pos, min, max, offset;
 
         // For fun
@@ -39,6 +42,7 @@ namespace advent
         int part1 = 0, part2 = 0;
 
     public:
+        // Constructor
         Dial(int def_pos, int def_min, int def_max) :
             pos(def_pos),
             min(def_min),
@@ -51,10 +55,12 @@ namespace advent
             }
         }
 
+        // Override for += and -= operators
         Dial& operator+= (const int& rotation);
         Dial& operator-= (const int& rotation);
 
-        int* get_parts() const;
+        // Getters
+        array<int, 2> get_parts() const;
         long get_iters() const;
 
     };

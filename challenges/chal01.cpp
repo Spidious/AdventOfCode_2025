@@ -46,8 +46,8 @@ size_t advent::challenge_entry(
         }
 
         // Update the output buffer for both parts
-        buffer[0] = to_string(dial.get_parts()[0]);
-        buffer[1] = to_string(dial.get_parts()[1]);
+        buffer.get()[0] = to_string(dial.get_parts()[0]);
+        buffer.get()[1] = to_string(dial.get_parts()[1]);
 
         cout << "Completed " << dial.get_iters() << " Iterations" << endl;
 
@@ -113,10 +113,9 @@ advent::Dial& advent::Dial::operator-= (const int& rotation)
     return *this;
 }
 
-int* advent::Dial::get_parts() const
+array<int, 2> advent::Dial::get_parts() const
 {
-    int arr[] = {part1, part2};
-    return arr;
+    return {part1, part2};
 }
 
 long advent::Dial::get_iters() const
