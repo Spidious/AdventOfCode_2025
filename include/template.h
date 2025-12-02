@@ -1,5 +1,5 @@
-#ifndef AOC25_TEMPLATE_H
-#define AOC25_TEMPLATE_H
+#ifndef AOC25_CHALLENGE
+#define AOC25_CHALLENGE
 
 #include <string>
 #include <iostream>
@@ -22,7 +22,7 @@ namespace advent
      */
     size_t challenge_entry(
         const vector<string>& data,
-        shared_ptr<string> buffer,
+        shared_ptr<string[]> buffer,
         const string& input
     );
 
@@ -32,4 +32,4 @@ namespace advent
 
 }
 
-#endif //AOC25_TEMPLATE_H
+#endif //AOC25_CHALLENGE

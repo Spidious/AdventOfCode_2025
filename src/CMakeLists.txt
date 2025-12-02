@@ -8,6 +8,7 @@ endif()
 
 target_compile_definitions(main PRIVATE
         AOC_DATA_FILE="${AOC_DIR}/chal_data/${AOC_CHAL}.txt"
+        AOC_CHAL="${AOC_CHAL}"
 )
 
 target_include_directories(main PUBLIC ${CMAKE_SOURCE_DIR}/include)

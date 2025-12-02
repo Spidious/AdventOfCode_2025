@@ -3,6 +3,6 @@ project(aoc25)
 
 set(CMAKE_CXX_STANDARD 20)
 
-option(AOC_CHAL "Which AoC Challenge to Build" "chal01")
+option(AOC_CHAL "Which AoC Challenge to Build" "template")
 
 add_subdirectory(src)

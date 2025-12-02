@@ -6,7 +6,7 @@ int main()
 {
     // Create parameters
     std::vector<std::string> file_data;
-    auto out_buffer = make_shared<string>("");
+    auto out_buffer = make_shared<string[]>(2);
 
     // Open file (AOC_DATA_FILE defined in src/CMakeLists.txt)
     std::ifstream input_file(AOC_DATA_FILE);
@@ -32,6 +32,12 @@ int main()
         cerr << "Advent challenge has failed!" << endl;
         cerr << "Exit code: " << challenge_result << endl;
     }
+
+    // Output the buffer
+    cout << "############ \"" << AOC_CHAL << "\" OUTPUT ############" << endl;
+    cout << "Part 1: " << out_buffer[0] << endl;
+    cout << "Part 2: " << out_buffer[1] << endl;
+    cout << "#########################################" << endl;
 
     return 0;
 }
