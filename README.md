@@ -29,6 +29,7 @@ This project contains my solutions for Advent of Code challenges in 2025. It inc
 
     - [VCPKG Install](https://github.com/microsoft/vcpkg)
     - Set Environment Variable `VCPKG_ROOT` to root of VCPKG install
+    
 
 3. **Configure the project with CMake:**
 
@@ -48,7 +49,8 @@ This project contains my solutions for Advent of Code challenges in 2025. It inc
     ```
 
     For example, to build challenge 01:
-    **Challenges are defined as their file names `chal01`, `chal02`, ... , `chal10`**
+
+    *Challenges are defined as their file names `chal01`, `chal02`, ... , `chal10`*
 
     ```bash
     cmake -DAOC_CHAL=chal01 ..
