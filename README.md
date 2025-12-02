@@ -33,7 +33,7 @@ This project contains my solutions for Advent of Code challenges in 2025. It inc
 3. **Configure the project with CMake:**
 
     Select preset:
-4. 
+
     ```bash
     # For Windows
     cmake --preset x64-windows-debug
