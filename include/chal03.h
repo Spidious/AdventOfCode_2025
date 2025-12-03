@@ -1,10 +1,11 @@
-#ifndef AOC25_CHALLENGE
-#define AOC25_CHALLENGE
+#ifndef AOC25_CHAL03_H
+#define AOC25_CHAL03_H
 
 #include <string>
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <array>
 /*
  * Extra includes here
  */
@@ -26,10 +27,9 @@ namespace advent
         const string& input
     );
 
-    /*
-     * Extra functions/classes here
-     */
+    string search_in_substring(const string& input, int start, int end_offset);
+    array<int, 2> find_first_highest(const string& input);
 
 }
 
-#endif //AOC25_CHALLENGE
+#endif //AOC25_CHAL03_H
