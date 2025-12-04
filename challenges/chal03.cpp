@@ -37,15 +37,12 @@ size_t advent::challenge_entry(
 string advent::search_in_substring(const string& input, const int start, const int end_offset)
 {
     // Base case. end_offset should not be <= 0
-    if (end_offset <= 0)
-    {
-        return "";
-    }
+    if (end_offset <= 0) return "";
 
     // Grab the front and back indexes of input substring
     int front = start, back = (input.length() - end_offset) - start;
 
-    // Grab thte substring [start, end_offset]
+    // Grab the substring [start, end_offset]
     string substring = input.substr(front, back+1);
 
     // Find the highest num of substring and it's index
