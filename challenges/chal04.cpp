@@ -22,18 +22,23 @@ size_t advent::challenge_entry(
 
 int advent::sweeper(const vector<string>& data, int iter_lim)
 {
+    // Create "removed" counter and a mutable data copy of the input data
     int removed = 0;
     vector<string> new_data = data;
 
+    // Loop through each row
     for (int j = 0; j < data.size(); j++)
     {
-        // Loop through each column
+        // Loop through each cell
         for (int i = 0; i < data[j].size(); i++)
         {
+            // If the cell is not an @ then skip it
             if (data[j].at(i) != '@')
             {
                 continue;
             }
+
+            // Create count for this cells neighbors
             int count = 0;
 
             // Loop through 9 cells and check for neighboring @'s (skip 1,1)
@@ -41,6 +46,7 @@ int advent::sweeper(const vector<string>& data, int iter_lim)
             {
                 for (int row = 0; row < 3; row++)
                 {
+                    // Create x and y offsets for readability
                     int x = row-1, y = column-1;
 
                     // Skip center of 3x3 grid
@@ -65,10 +71,14 @@ int advent::sweeper(const vector<string>& data, int iter_lim)
         }
     }
 
+    // Decrement the iter limit
     iter_lim--;
     if (iter_lim == 0 || removed == 0)
     {
+        // Base case
         return removed;
     }
+
+    // Recursively add removed to next iteration
     return removed + sweeper(new_data, iter_lim);
 }

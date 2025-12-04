@@ -25,6 +25,13 @@ namespace advent
         const string& input
     );
 
+    /**
+     * "Mine Sweeper" named after my first attempt
+     * count the @'s removed.
+     * @param data input 2D array (vector of strings)
+     * @param iter_lim limit on number of iterations (-1 for infinite, will quit when 0 @'s are removed)
+     * @return integer count of removed @'s
+     */
     int sweeper(const vector<string>& data, int iter_lim);
 
 }
