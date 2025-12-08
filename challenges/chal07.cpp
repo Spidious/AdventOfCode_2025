@@ -32,14 +32,12 @@ size_t advent::challenge_entry(
             // if current cell is not '^' then mark current position with | and move along
             if (!(mut_data[i].at(j) == '^' && p1_tracker[j]))
             {
-                // mut_data[i].at(j) = '|';
                 continue;
             }
 
             // A split needs to happen
             if (j != 0)
             {
-                // mut_data[i].at(j-1) = '|';
                 if (p1_tracker[j])
                 {
                     p1_tracker[j-1] = 1;
@@ -48,7 +46,6 @@ size_t advent::challenge_entry(
             }
             if (j != data_width - 1)
             {
-                // mut_data[i].at(j+1) = '|';
                 if (p1_tracker[j])
                 {
                     p1_tracker[j+1] = 1;
