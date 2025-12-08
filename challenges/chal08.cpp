@@ -1,0 +1,76 @@
+#include <chal08.h>
+
+size_t advent::challenge_entry(
+        const vector<string>& data,
+        shared_ptr<string[]> buffer,
+        const string& input
+    )
+{
+    // Parse all 3D coordinates into node objects
+    vector<node> all_nodes;
+    for (auto d : data)
+    {
+        string mut = d;
+        // Grab X
+        uint16_t x = stoul(mut.substr(0, mut.find(",")));
+        mut = mut.substr(mut.find(",")+1);
+        // Grab Y
+        uint16_t y = stoul(mut.substr(0, mut.find(",")));
+        mut = mut.substr(mut.find(",")+1);
+        // Grab Z
+        uint16_t z = stoul(mut);
+
+        all_nodes.push_back(node(x, y, z));
+    }
+
+    // Create large pairs list
+    long count = 0;
+    // vector<link> pairs;
+    circuit pairs;
+    for (auto main_node : all_nodes)
+    {
+        for (auto other_node : all_nodes)
+        {
+            count++;
+            if (pairs.contains(link(main_node, other_node))) continue;
+            if (main_node == other_node) continue;
+            pairs.add_pair(link(main_node, other_node));
+        }
+    }
+    // Sort ascending
+    pairs.sort();
+
+    // Add first 10 pairs to circuits
+    vector<circuit> circuits;
+    for (int i = 0; i < 10; i++)
+    {
+        bool matched = false;
+        for (auto circuit : circuits)
+        {
+            if (circuit.has_match(pairs.first()))
+            {
+                matched = true;
+                circuit.add_pair(pairs.pop_first());
+            }
+        }
+        if (!matched)
+        {
+            circuits.push_back(circuit());
+            circuits.back().add_pair(pairs.pop_first());
+        }
+    }
+
+    // Sort the circuits
+    sort(circuits.begin(), circuits.end());
+
+    uint16_t part1 = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+        part1 *= circuits[i].count();
+    }
+
+    buffer.get()[0] = to_string(part1);
+
+    return 0;
+}
