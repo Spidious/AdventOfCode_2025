@@ -38,6 +38,7 @@ int main()
 
     // Calculate duration
     auto duration = end_time - begin_time;
+    auto u_seconds = chrono::duration_cast<std::chrono::microseconds>(duration);
     auto m_seconds = chrono::duration_cast<std::chrono::milliseconds>(duration);
     auto seconds = chrono::duration_cast<std::chrono::seconds>(duration);
 
@@ -46,7 +47,10 @@ int main()
     cout << "Part 1: " << out_buffer[0] << endl;
     cout << "Part 2: " << out_buffer[1] << endl;
     cout << "#########################################" << endl;
-    cout << "Completed in: " << seconds.count() << "s (" << m_seconds.count() << "ms)" << endl;
+    cout << "Completed in: " << seconds.count() << "."
+                            << setfill('0') << setw(3) << m_seconds.count() % 1000
+                            << setfill('0')  << setw(3) << u_seconds.count() % 1000
+                            << " Seconds" << endl;
     cout << "#########################################" << endl;
     return 0;
 }
