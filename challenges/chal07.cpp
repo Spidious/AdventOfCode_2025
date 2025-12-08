@@ -6,8 +6,7 @@ size_t advent::challenge_entry(
         const string& input
     )
 {
-    vector<string> mut_data = data;
-    int data_width = data[0].size();
+    int data_width = data[0].length();
 
     uint64_t part1 = 0; // count this on O(mn)
     uint64_t part2 = 0;
@@ -24,13 +23,13 @@ size_t advent::challenge_entry(
     for (int i = 2; i < data.size(); i += 2)
     {
         // Loop in sort of a cone shape
-        for (int j = (data_width - i) / 2; j < (data_width + i) / 2; j++)
+        for (int j = (data_width - i) / 2 + 1; j < (data_width + i) / 2; j++)
         {
             // i = row #
             // j = col #
 
             // if current cell is not '^' then mark current position with | and move along
-            if (!(mut_data[i].at(j) == '^' && p1_tracker[j]))
+            if (!(data[i].at(j) == '^' && p1_tracker[j]))
             {
                 continue;
             }
