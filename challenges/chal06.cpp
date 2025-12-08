@@ -9,8 +9,6 @@ size_t advent::challenge_entry(
     // Create a vector of math problems
     vector<MathProblem_1> problems;
 
-    cout << "> Creating problem objects..." << endl;
-
     // iterate over the bottom of the input to initialize 'problems'
     regex re("([+*]) ?");
     smatch match;
@@ -23,8 +21,6 @@ size_t advent::challenge_entry(
         // Advance the regex search
         operands = match.suffix();
     }
-
-    cout << "Complete!" << endl << "> Solving problems... " << endl;
 
     // Iterate over the input (-1 row) as normal
     for (int i = 0; i < data.size() -1; i++)
@@ -48,13 +44,9 @@ size_t advent::challenge_entry(
         }
     }
 
-    cout << "Complete!" << endl << "> Tallying totals... " << endl;
-
     // Count the total result of each problem
     uint64_t part1 = 0;
     for (auto p : problems) part1 += p.get_total();
-
-    cout << "Complete!" << endl;
 
     // Update the output buffer
     buffer.get()[0] = to_string(part1);
