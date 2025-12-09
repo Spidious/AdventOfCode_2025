@@ -121,25 +121,33 @@ namespace advent
      */
     class circuit_obj
     {
-        vector<link> pairs;
+        // vector<link> pairs;
+        set<link> pairs;
+        set<node> nodes;
     public:
         circuit_obj() = default;
         void add_pair(link p)
         {
-            pairs.push_back(p);
+            // pairs.push_back(p);
+            pairs.insert(p);
+            nodes.insert(p.get_a());
+            nodes.insert(p.get_b());
         }
         bool contains(const link& p) const
         {
-            for (auto pair : pairs)
-                if (p == pair)
-                    return true;
-            return false;
+            // for (auto pair : pairs)
+            //     if (p == pair)
+            //         return true;
+            return pairs.contains(p);
         }
         bool contains(const node& n) const
         {
-            for (auto pair : pairs)
-                if (pair.a == n || pair.b == n)
-                    return true;
+            return nodes.contains(n);
+        }
+        bool contains(const circuit_obj& c) const
+        {
+            for (auto n : c.nodes)
+                return contains(n);
             return false;
         }
         bool has_match(const link& p) const
@@ -150,19 +158,25 @@ namespace advent
         }
         uint16_t count() const
         {
-            set<node> ns;
-            for (auto pair : pairs)
-            {
-                ns.insert(pair.get_a());
-                ns.insert(pair.get_b());
-            }
-            return ns.size();
+            return nodes.size();
         }
-        void sort()
+        void join(circuit_obj& c)
         {
-            std::sort(pairs.begin(), pairs.end());
+            for (auto i : c.pairs)
+                pairs.insert(i);
+            for (auto i : c.nodes)
+                nodes.insert(i);
+        }
+        uint16_t size() const
+        {
+            return pairs.size();
         }
 
+        circuit_obj& operator+= (circuit_obj& rh)
+        {
+            this->join(rh);
+            return *this;
+        }
         circuit_obj& operator= (const circuit_obj& rh)
         {
             if (this == &rh) return *this;
@@ -177,11 +191,11 @@ namespace advent
         {
             return count() > rh.count();
         }
-        const link_obj& first() const { return pairs[0]; }
-        const link_obj& last() const { return pairs.back(); }
+        const link_obj& first() const { return *pairs.begin(); }
+        const link_obj& last() const { return *pairs.rbegin(); }
         link_obj pop_first()
         {
-            auto hold = pairs[0];
+            auto hold = first();
             pairs.erase(pairs.begin());
             return hold;
         }

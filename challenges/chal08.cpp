@@ -40,24 +40,22 @@ size_t advent::challenge_entry(
             pairs.add_pair(link(main_node, other_node));
         }
     }
-    // Sort ascending
-    pairs.sort();
 
     // Add first 10 pairs to circuits
     vector<circuit> circuits;
     for (int i = 0; i < 10; i++)
     {
         // Check condition
-        bool matched = false;
+        circuit * matched = nullptr;
         // Loop over each existing circuit
-        for (auto& circuit : circuits)
+        for (int j = 0; j < circuits.size(); j++)
         {
             // check if pair should be added
-            if (circuit.has_match(pairs.first()) && !circuit.contains(pairs.first()))
+            if (circuits[j].has_match(pairs.first()) && !circuits[j].contains(pairs.first()))
             {
                 // Move pair to circuit
-                matched = true;
-                circuit.add_pair(pairs.pop_first());
+                circuits[j].add_pair(pairs.pop_first());
+                matched = &circuits[j];
                 break;
             }
         }
@@ -69,12 +67,26 @@ size_t advent::challenge_entry(
         }
     }
 
+    // Merge necessary circuits
+    for (int i = 0; i < circuits.size(); i++)
+    {
+        for (int j = 0; j < circuits.size(); j++)
+        {
+            if (i == j) continue;
+            if (circuits[i].contains(circuits[j]))
+            {
+                circuits[i] += circuits[j];
+                circuits.erase(circuits.begin() + j);
+            }
+        }
+    }
+
     // Sort the circuits
     sort(circuits.begin(), circuits.end(), greater<>());
 
     // Take product of top 3
     uint16_t part1 = 1;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < circuits.size(); i++)
     {
         cout << circuits[i].count() << endl;
         part1 *= circuits[i].count();
