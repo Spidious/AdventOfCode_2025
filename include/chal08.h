@@ -36,9 +36,9 @@ namespace advent
     class node_obj
     {
     protected:
-        uint16_t x, y, z;
+        uint64_t x, y, z;
     public:
-        node_obj(const uint16_t x, const uint16_t y, const uint16_t z) : x(x), y(y), z(z) {}
+        node_obj(const uint64_t x, const uint64_t y, const uint64_t z) : x(x), y(y), z(z) {}
         float distance(const node_obj& n) const
         {
             float a = (n.x - x)*(n.x - x);
@@ -156,7 +156,7 @@ namespace advent
             if (contains(p.get_b())) return true;
             return false;
         }
-        uint16_t count() const
+        uint64_t count() const
         {
             return nodes.size();
         }
@@ -167,7 +167,7 @@ namespace advent
             for (auto i : c.nodes)
                 nodes.insert(i);
         }
-        uint16_t size() const
+        uint64_t size() const
         {
             return pairs.size();
         }

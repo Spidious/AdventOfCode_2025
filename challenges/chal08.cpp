@@ -13,13 +13,13 @@ size_t advent::challenge_entry(
     {
         string mut = d;
         // Grab X
-        uint16_t x = stoul(mut.substr(0, mut.find(",")));
+        uint64_t x = stoul(mut.substr(0, mut.find(",")));
         mut = mut.substr(mut.find(",")+1);
         // Grab Y
-        uint16_t y = stoul(mut.substr(0, mut.find(",")));
+        uint64_t y = stoul(mut.substr(0, mut.find(",")));
         mut = mut.substr(mut.find(",")+1);
         // Grab Z
-        uint16_t z = stoul(mut);
+        uint64_t z = stoul(mut);
 
         all_nodes.push_back(node(x, y, z));
     }
@@ -46,14 +46,16 @@ size_t advent::challenge_entry(
     {
         // Check condition
         circuit * matched = nullptr;
+        link current = pairs.pop_first();
         // Loop over each existing circuit
         for (int j = 0; j < circuits.size(); j++)
         {
             // check if pair should be added
-            if (circuits[j].has_match(pairs.first()) && !circuits[j].contains(pairs.first()))
+            if (circuits[j].has_match(current))
             {
+
                 // Move pair to circuit
-                circuits[j].add_pair(pairs.pop_first());
+                circuits[j].add_pair(current);
                 matched = &circuits[j];
             }
         }
@@ -61,8 +63,9 @@ size_t advent::challenge_entry(
         if (!matched)
         {
             circuits.push_back(circuit());
-            circuits.back().add_pair(pairs.pop_first());
+            circuits.back().add_pair(current);
         }
+        matched = nullptr;
     }
 
     // Merge necessary circuits
@@ -83,8 +86,8 @@ size_t advent::challenge_entry(
     sort(circuits.begin(), circuits.end(), greater<>());
 
     // Take product of top 3
-    uint16_t part1 = 1;
-    for (int i = 0; i < 3; i++)
+    uint64_t part1 = 1;
+    for (int i = 0; i < circuits.size(); i++)
     {
         cout << circuits[i].count() << endl;
         part1 *= circuits[i].count();
