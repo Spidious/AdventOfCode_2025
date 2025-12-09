@@ -6,6 +6,7 @@ size_t advent::challenge_entry(
         const string& input
     )
 {
+
     // Parse all 3D coordinates into node objects
     vector<node> all_nodes;
     for (auto d : data)
@@ -27,6 +28,8 @@ size_t advent::challenge_entry(
     long count = 0;
     // vector<link> pairs;
     circuit pairs;
+
+    // Loop over all nodes and find every single pair
     for (auto main_node : all_nodes)
     {
         for (auto other_node : all_nodes)
@@ -44,15 +47,21 @@ size_t advent::challenge_entry(
     vector<circuit> circuits;
     for (int i = 0; i < 10; i++)
     {
+        // Check condition
         bool matched = false;
-        for (auto circuit : circuits)
+        // Loop over each existing circuit
+        for (auto& circuit : circuits)
         {
-            if (circuit.has_match(pairs.first()))
+            // check if pair should be added
+            if (circuit.has_match(pairs.first()) && !circuit.contains(pairs.first()))
             {
+                // Move pair to circuit
                 matched = true;
                 circuit.add_pair(pairs.pop_first());
+                break;
             }
         }
+        // If unmached, create new circuit and move pair
         if (!matched)
         {
             circuits.push_back(circuit());
@@ -61,15 +70,17 @@ size_t advent::challenge_entry(
     }
 
     // Sort the circuits
-    sort(circuits.begin(), circuits.end());
+    sort(circuits.begin(), circuits.end(), greater<>());
 
-    uint16_t part1 = 0;
-
+    // Take product of top 3
+    uint16_t part1 = 1;
     for (int i = 0; i < 3; i++)
     {
+        cout << circuits[i].count() << endl;
         part1 *= circuits[i].count();
     }
 
+    // Output to buffer
     buffer.get()[0] = to_string(part1);
 
     return 0;

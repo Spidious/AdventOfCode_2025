@@ -6,6 +6,8 @@
 #include <memory>
 #include <vector>
 #include <algorithm>
+#include <cmath>
+#include <set>
 /*
  * Extra includes here
  */
@@ -57,6 +59,13 @@ namespace advent
             x = rh.x; y = rh.y; z = rh.z;
             return *this;
         }
+        bool operator<(const node_obj& rh) const
+        {
+            if (x != rh.x) return x < rh.x;
+            if (y != rh.y) return y < rh.y;
+            return z < rh.z;
+        }
+
     } typedef node;
 
     /**
@@ -70,7 +79,7 @@ namespace advent
         friend circuit_obj;
 
     public:
-        link_obj(node& a, node& b) : a(a), b(b), distance(a.distance(b)) {}
+        link_obj(const node& a, const node& b) : a(a), b(b), distance(a.distance(b)) {}
 
         const node& get_a() const
         {
@@ -141,7 +150,13 @@ namespace advent
         }
         uint16_t count() const
         {
-            return pairs.size() + 1;
+            set<node> ns;
+            for (auto pair : pairs)
+            {
+                ns.insert(pair.get_a());
+                ns.insert(pair.get_b());
+            }
+            return ns.size();
         }
         void sort()
         {
@@ -162,10 +177,8 @@ namespace advent
         {
             return count() > rh.count();
         }
-        const link_obj& first() const
-        {
-            return pairs[0];
-        }
+        const link_obj& first() const { return pairs[0]; }
+        const link_obj& last() const { return pairs.back(); }
         link_obj pop_first()
         {
             auto hold = pairs[0];
