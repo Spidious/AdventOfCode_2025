@@ -71,7 +71,7 @@ namespace advent
     /**
      * Link object
      */
-    class link_obj
+    class rectangl_obj
     {
     protected:
         node a, b;
@@ -79,7 +79,7 @@ namespace advent
         friend circuit_obj;
 
     public:
-        link_obj(const node& a, const node& b) : a(a), b(b), distance(a.distance(b)) {}
+        rectangl_obj(const node& a, const node& b) : a(a), b(b), distance(a.distance(b)) {}
 
         const node& get_a() const
         {
@@ -90,7 +90,7 @@ namespace advent
             return b;
         }
 
-        bool operator== (const link_obj& rh) const
+        bool operator== (const rectangl_obj& rh) const
         {
             if (rh.a == a && rh.b == b)
                 return true;
@@ -98,15 +98,15 @@ namespace advent
                 return true;
             return false;
         }
-        bool operator< (const link_obj& rh) const
+        bool operator< (const rectangl_obj& rh) const
         {
             return distance < rh.distance;
         }
-        bool operator> (const link_obj& rh) const
+        bool operator> (const rectangl_obj& rh) const
         {
             return distance > rh.distance;
         }
-        link_obj& operator= (const link_obj& rh)
+        rectangl_obj& operator= (const rectangl_obj& rh)
         {
             if (this == &rh) return *this;
             this->a = rh.a;
@@ -191,9 +191,9 @@ namespace advent
         {
             return count() > rh.count();
         }
-        const link_obj& first() const { return *pairs.begin(); }
-        const link_obj& last() const { return *pairs.rbegin(); }
-        link_obj pop_first()
+        const rectangl_obj& first() const { return *pairs.begin(); }
+        const rectangl_obj& last() const { return *pairs.rbegin(); }
+        rectangl_obj pop_first()
         {
             auto hold = first();
             pairs.erase(pairs.begin());
