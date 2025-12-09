@@ -147,7 +147,7 @@ namespace advent
         bool contains(const circuit_obj& c) const
         {
             for (auto n : c.nodes)
-                return contains(n);
+                if (contains(n)) return true;
             return false;
         }
         bool has_match(const link& p) const

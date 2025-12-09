@@ -35,7 +35,6 @@ size_t advent::challenge_entry(
         for (auto other_node : all_nodes)
         {
             count++;
-            if (pairs.contains(link(main_node, other_node))) continue;
             if (main_node == other_node) continue;
             pairs.add_pair(link(main_node, other_node));
         }
@@ -56,7 +55,6 @@ size_t advent::challenge_entry(
                 // Move pair to circuit
                 circuits[j].add_pair(pairs.pop_first());
                 matched = &circuits[j];
-                break;
             }
         }
         // If unmached, create new circuit and move pair
@@ -86,7 +84,7 @@ size_t advent::challenge_entry(
 
     // Take product of top 3
     uint16_t part1 = 1;
-    for (int i = 0; i < circuits.size(); i++)
+    for (int i = 0; i < 3; i++)
     {
         cout << circuits[i].count() << endl;
         part1 *= circuits[i].count();
